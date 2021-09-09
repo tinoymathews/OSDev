@@ -6,7 +6,7 @@ OUTDIR   = obj/
 BINDIR   = bin/
 
 
-objects = $(OUTDIR)loader.o $(OUTDIR)kernel.o
+objects = $(OUTDIR)loader.o $(OUTDIR)gdt.o $(OUTDIR)kernel.o
 
 prepare:
 	mkdir $(OUTDIR)
@@ -60,9 +60,9 @@ clean:
 all:
 	make clean
 	make prepare
+	make gdt.o
 	make kernel.o
 	make loader.o
 	make kernel.bin
 	make install
 	make kernel.iso
-	make run
