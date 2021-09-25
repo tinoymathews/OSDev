@@ -17,4 +17,14 @@ typedef unsigned long long uint64_t;
 
 typedef unsigned long int Address;
 
+typedef unsigned int size_t;
+
+
+#define NULL (void*)0
+#define CHAR sizeof(int8_t)
+#define SHORT sizeof(int16_t)
+#define INT sizeof(int32_t)
+#define LONG sizeof(int64_t)
+
+
 #endif

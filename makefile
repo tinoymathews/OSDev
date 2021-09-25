@@ -6,7 +6,12 @@ OUTDIR   = obj/
 BINDIR   = bin/
 
 
-objects = $(OUTDIR)loader.o $(OUTDIR)gdt.o $(OUTDIR)kernel.o
+objects = $(OUTDIR)loader.o  \
+	  $(OUTDIR)gdt.o     \
+	  $(OUTDIR)stdio.o   \
+	  $(OUTDIR)string.o     \
+ 	  $(OUTDIR)cpu.o     \
+	  $(OUTDIR)kernel.o 
 
 prepare:
 	mkdir $(OUTDIR)
@@ -61,6 +66,9 @@ all:
 	make clean
 	make prepare
 	make gdt.o
+	make stdio.o
+	make string.o
+	make cpu.o
 	make kernel.o
 	make loader.o
 	make kernel.bin

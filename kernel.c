@@ -1,37 +1,34 @@
-#include "includes/types.h"
+#include "includes/stdio.h"
+#include "includes/cpu.h"
 #include "includes/gdt.h"
 
-static uint16_t* VideoMemory = (uint16_t*)0xb8000;
-
-void printf(char* str)
-{
-    int32_t i;
-    int32_t j;
-
-    for(i = 0; str[i] != '\0'; ++i)
-        VideoMemory[i] = (VideoMemory[i] & 0xFF00) | str[i];    
-
-    /* Fill the remaining characters to emulate the new line */
-    j = i;
-    while( i < 80 )
-    {
-	VideoMemory[i] = (VideoMemory[i] & 0xFF00) | str[j];
-	i++;
-    }
-    
-    /* Update the video memory to the next line */
-    VideoMemory = VideoMemory + 80;
-}
 
 
 void kernelMain(const void* multiboot_structure, uint32_t magicnumber)
 {
-    printf("Starting OS...");
+    uint8_t u8Size;
+    printf("%s", "Starting OS...", 0);
+
+    /* Print out data sizes */
+    printf( "%s", "Size of char : ", 0 );
+    u8Size = sizeof( int8_t );
+    printf( "%d", &u8Size, CHAR );
+
+    printf( "%s", "Size of short : ", 0 );
+    u8Size = sizeof( int16_t );
+    printf( "%d", &u8Size, CHAR );
+
+    printf( "%s", "Size of int : ", 0 );
+    u8Size = sizeof( int32_t );
+    printf( "%d", &u8Size, CHAR );
 
     /* Initialize Global Descriptor Table */
     setup_gdt();
 
-    printf("Global decriptor table setup complete..." );
+    printf("%s", "Global decriptor table setup complete...", 0 );
+
+    /* Get CPU information */
+    get_info();
 
     /* The kernel should not stop, must keep running */
     while(1);
